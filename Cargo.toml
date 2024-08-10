@@ -1,0 +1,32 @@
+[package]
+name = "gaem"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { version = "0.14.1", features = ["dynamic_linking"] }
+
+# Enable a small amount of optimization in the dev profile.
+# [profile.dev]
+# opt-level = "z"
+# codegen-units = 1
+
+[profile.release]
+lto = "thin"
+opt-level = "z"
+codegen-units = 1
+
+# # Enable a large amount of optimization in the dev profile for dependencies.
+# [profile.release]
+# opt-level = 3
+# codegen-units = 1
+# lto = true
+# panic = "abort"
+# strip = "symbols"
+# incremental = false
+# debug = false
+
+# for Linux
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
